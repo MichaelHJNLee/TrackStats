@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CryptoJS from 'crypto-js';
+
 
 const SignIn = (props) => {
   const [login, toggleLogin] = useState(false);
@@ -8,11 +8,17 @@ const SignIn = (props) => {
   return (
     <div>
       <h1>TrackStats</h1>
-      <h2 onClick={() =>{toggleLogin(!login)}}>Log-In</h2>
-      <h2 onClick={() =>{toggleSignup(!signup)}}>Sign-Up</h2>
-      {login && <input type="text"></input>}
-      {signup && <input type="text"></input>}
-      <div onClick={() => props.setLogged(true)}>hi</div>
+      <h2 onClick={() =>{toggleLogin(!login); toggleSignup(false)}}>Log-In</h2>
+      <h2 onClick={() =>{toggleSignup(!signup); toggleLogin(false)}}>Sign-Up</h2>
+      {login && <div>Log-In Username: <input type="text" id="loginName"></input> Password: <input type="password" id="loginPW"></input></div>}
+      {signup && <div>Sign Up Username: <input type="text" id="signupName"></input> Password: <input type="password" id="signupPW"></input></div>}
+      {(login || signup) && <div onClick={() => {
+        if (login) {
+          props.login(document.getElementById('loginName').value, document.getElementById('loginPW').value, 'login');
+        } else {
+          props.login(document.getElementById('signupName').value, document.getElementById('signupPW').value, 'signup')
+        }
+        }}>Submit</div>}
     </div>
   )
 }
