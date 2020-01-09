@@ -45,7 +45,7 @@ class App extends React.Component {
         } else {
           return;
         }
-      })
+      })``
     this.setState({
       logged: !this.state.logged
     })
